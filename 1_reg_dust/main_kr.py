@@ -21,13 +21,12 @@ OUTPUT_DIM = 2 # t-time의 (미세, 초미세)
 
 def bind_model(model):
     def save(path, *args, **kwargs):
-        # save the model with 'checkpoint' dictionary.
-        
-        model.model.save(os.path.join(path, 'model'))    
+        model.save_weights(os.path.join(path, 'model'))
+        print('model saved!')
 
     def load(path, *args, **kwargs):
-        model = keras.models.load_model(os.path.join(path, 'model'))
-        return model
+        model.load_weights(os.path.join(path, 'model'))
+        print('model loaded!')
 
     def infer(path, **kwargs):
         return inference(path, model, config)
